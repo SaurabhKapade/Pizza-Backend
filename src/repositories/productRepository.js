@@ -14,7 +14,7 @@ async function insertProduct(ProductData){
             })
             throw new BadRequestError(errorMessageList)
         }
-        console.log(err)
+        console.log(error)
         throw new InternalServerError();
     }
 }

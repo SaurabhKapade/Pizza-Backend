@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('../config/serverConfig')
+const UnauthorisedError = require('../utils/unauthorisedError')
 
 async function isLoggedIn(req,res,next){
     const token = req.cookies['authToken']
@@ -11,28 +12,45 @@ async function isLoggedIn(req,res,next){
             error:"Not Authenticated"
         })
     }
-
-    const decoded = jwt.verify(token,JWT_SECRET)
-
-    if(!decoded){
+    try{
+        const decoded = jwt.verify(token,JWT_SECRET)
+        if(!decoded){
+            throw new UnauthorisedError()
+        }
+        req.user = {
+            email:decoded.email,
+            id:decoded.id,
+            role:decoded.role
+        }
+    }catch(err){
         return res.status(401).json({
             success:false,
             data:{},
-            message:'Invalid Token provided',
-            error:"Not Authenticated"
+            error:err,
+            message:"Invalid token provided"
         })
     }
-    // of reacjed here then user is authenticated and allow to access the api
 
-    req.user = {
-        email:decoded.email,
-        id:jwt.decode.id
-    }
     next();
 }
 
 async function isAdmin(req,res,next){
     // this function checks an authenticated user is admin or not
+    const loggedInUser = req.user;
+    if(loggedInUser.role ==="ADMIN"){
+        console.log('user is ',loggedInUser)
+        next();
+    }else{
+        return res.status(401).json({
+            success:false,
+            data:{},
+            message:"You are not authorised for this action",
+            error:{
+                statusCode:401,
+                reason:"Unauthorised user for this action"
+            }
+        })
+    }
     
 }
 module.exports = {

@@ -19,7 +19,9 @@ async function loginUser(authDetails){
         throw{message:'Invalid password Please try again',statuscode:404}
     }
 
-    const token = jwt.sign({email:user.email , id:user._id},JWT_SECRET,{expiresIn:'60h'})
+    const userRole = user.role?user.role:"USER"
+
+    const token = jwt.sign({email:user.email , id:user._id , role:userRole },JWT_SECRET,{expiresIn:'60h'})
     return token;
 
 }
