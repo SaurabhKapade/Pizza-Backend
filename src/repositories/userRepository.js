@@ -2,7 +2,6 @@ const user = require("../schema/userSchema");
 
     async function findUser(parameters) {
     try {
-        console.log("hellow from finUser");
         const response = await user.findOne({ ...parameters });
         return response;
     } catch (err) {

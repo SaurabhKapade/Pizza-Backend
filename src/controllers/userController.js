@@ -1,4 +1,3 @@
-const Cart = require('../schema/cartSchema');
 const { registerUser } = require('../services/userService');
  async function createUser(req,res){
 
@@ -13,16 +12,17 @@ const { registerUser } = require('../services/userService');
             success:true,
             data:response,
             error:{},
-            cart:newCart
+            cart:response.cart
         })
-    }catch(err){
-        return res.json({
-            success:false,
-            message:err.reason,
-            data:{},
-            error:err
+    }catch(error) {
+        return res.status(error.statusCode).json({
+            success: false,
+            message: error.reason,
+            data: {},
+            error: error
         })
     }
+   
  }
 
  module.exports={createUser}
