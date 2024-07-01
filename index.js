@@ -11,7 +11,7 @@ const { uploader } = require('./src/middlewares/multerMiddleware');
 const { cloudinary } = require('./src/config/cloudinaryConfig');
 const fs = require('fs/promises');
 const { productRouter } = require('./src/routes/productRoute');
-const cartRoute = require('./src/routes/cartRoute');
+const cartRouter = require('./src/routes/cartRoute');
 
 
 const app = express();
@@ -25,7 +25,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/users',userRouter);
 app.use('/auth',authRouter);
 app.use('/product',productRouter);
-app.use('/carts',cartRoute)
+app.use('/carts',cartRouter)
 
 app.listen(serverConfig.PORT,async()=>{
     await connectDB();

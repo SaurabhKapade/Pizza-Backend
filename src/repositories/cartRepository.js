@@ -1,4 +1,5 @@
 const Cart = require('../schema/cartSchema')
+const InternalServerError = require('../utils/internalServerError')
 async function createCart(userId){
     try{
         const newCart = await Cart.create({
@@ -21,10 +22,10 @@ async function getCartByUserId(userId){
     try{
         const cart = await Cart.findOne({
             user:userId
-        })
+        }).populate('items.product')
         return cart
     }catch(err){
-        console.log(err)
+        console.log(err.message)
         throw new InternalServerError()
     }
 }
