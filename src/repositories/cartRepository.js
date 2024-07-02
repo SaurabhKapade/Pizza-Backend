@@ -1,5 +1,6 @@
 const Cart = require('../schema/cartSchema')
 const InternalServerError = require('../utils/internalServerError')
+const NotFoundError = require('../utils/notFoundError')
 async function createCart(userId){
     try{
         const newCart = await Cart.create({
@@ -29,7 +30,23 @@ async function getCartByUserId(userId){
         throw new InternalServerError()
     }
 }
+async function clearCart(userId){
+    try{
+        const cart = await Cart.findOne({user:userId});
+        console.log('clearcart me se cart :',cart)
+        if(!cart){
+            throw new NotFoundError('Cart')
+        }
+        
+        cart.items = []
+        await cart.save()
+        return cart;
+    }catch(err){
+        throw new InternalServerError()
+    }
+}
 module.exports = {
     createCart,
-    getCartByUserId
+    getCartByUserId,
+    clearCart
 }
