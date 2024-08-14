@@ -24,7 +24,8 @@ const {createCart} = require('../repositories/cartRepository')
         firstName: userDetails.firstName,
         lastName: userDetails.lastName,
         mobileNumber: userDetails.mobileNumber,
-        role:userDetails.role
+        role:userDetails.role,
+        address:userDetails.address
     });
     if (!newUser) {
         throw { 

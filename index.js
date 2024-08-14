@@ -12,6 +12,7 @@ const { cloudinary } = require('./src/config/cloudinaryConfig');
 const fs = require('fs/promises');
 const { productRouter } = require('./src/routes/productRoute');
 const cartRouter = require('./src/routes/cartRoute');
+const { orderRouter } = require('./src/routes/orderRoute');
 
 
 const app = express();
@@ -26,11 +27,14 @@ app.use('/users',userRouter);
 app.use('/auth',authRouter);
 app.use('/product',productRouter);
 app.use('/carts',cartRouter)
+app.use('/orders',orderRouter)
 
 app.listen(serverConfig.PORT,async()=>{
     await connectDB();
     console.log(`server got started at port : ${serverConfig.PORT}`)
 })
+
+app.get('*',(req,res)=>{res.status(200) , res.json({massage :`server started at ${process.env.PORT}`})})
 
 app.get('/ping',isLoggedIn, (req, res) => {
     return res.json({message: "pong"});

@@ -37,7 +37,6 @@ async function clearCart(userId){
         if(!cart){
             throw new NotFoundError('Cart')
         }
-        
         cart.items = []
         await cart.save()
         return cart;

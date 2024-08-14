@@ -31,7 +31,7 @@ async function modifyCart(userId,productId,shouldAdd = true){
         if(item.product._id == productId){
             //we written .toString because item.product is an object and productId is an string and we are using strict equality operator so .toString is mandatory or use only == operator 
             if(shouldAdd){
-                if(product.quantity >= item.quantity +1){
+                if(product.quantity >= item.quantity +1 ){ 
                     item.quantity += quantityValue
                 }else{
                     throw new AppError("The quantity of the item requested is not available",404)
@@ -53,6 +53,7 @@ async function modifyCart(userId,productId,shouldAdd = true){
             foundProduct = true
         }
     })
+    // means the product is not in the cart
 
     if(!foundProduct){
         if(shouldAdd){

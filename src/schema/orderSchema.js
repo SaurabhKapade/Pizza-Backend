@@ -30,7 +30,7 @@ const orderSchema = new mongoose.Schema({
         type:String,
         minlength:[10,"Address should be of atleast 10 characters"]
     },
-    aymentMethod:{
+    paymentMethod:{
         type:String,
         enum:['ONLINE','CASH'],
         default:'CASH'
