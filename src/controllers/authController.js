@@ -28,6 +28,19 @@ async function login(req,res){
   }
 }
 
+async function logOut(req,res){
+  res.cookie("authToken","",{
+    httpOnly:true,
+    secure:false
+  })
+  return res.status(200).json({
+    success:true,
+    message:"Log Out successfully",
+    error:{},
+    data:{}
+  })
+}
 module.exports = {
-    login
+    login,
+    logOut
 }
