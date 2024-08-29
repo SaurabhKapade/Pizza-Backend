@@ -1,9 +1,6 @@
 const { registerUser } = require('../services/userService');
  async function createUser(req,res){
 
-    console.log("Create user Controller called");
-    console.log(req.body)
-
     
     try{
         const response = await registerUser(req.body);

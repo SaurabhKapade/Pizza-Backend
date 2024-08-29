@@ -13,7 +13,7 @@ const fs = require('fs/promises');
 const { productRouter } = require('./src/routes/productRoute');
 const cartRouter = require('./src/routes/cartRoute');
 const { orderRouter } = require('./src/routes/orderRoute');
-
+const cors = require('cors')
 
 const app = express();
 
@@ -21,6 +21,10 @@ app.use(cookierparser())
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({extended:true}));
+app.use(cors({
+    origin:'http://localhost:5173',
+    credentials:true
+}))
 
 
 app.use('/users',userRouter);
