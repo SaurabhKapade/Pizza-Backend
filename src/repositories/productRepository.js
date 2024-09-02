@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { express } = require('express');
 const product = require('../schema/productSchema');
 const BadRequestError = require('../utils/badRequest');
 const InternalServerError = require('../utils/internalServerError')

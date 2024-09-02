@@ -5,7 +5,7 @@ const UnauthorisedError = require('../utils/unauthorisedError')
 async function isLoggedIn(req,res,next){
     const token = req.cookies['authToken']
     if(!token){
-        return res.status(401).json({
+        return res.status(400).json({
             success:false,
             data:{},
             message:'No auth Token provided',
@@ -23,7 +23,7 @@ async function isLoggedIn(req,res,next){
             role:decoded.role
         }
     }catch(err){
-        return res.status(401).json({
+        return res.status(400).json({
             success:false,
             data:{},
             error:err,
@@ -41,7 +41,7 @@ async function isAdmin(req,res,next){
         console.log('user is ',loggedInUser)
         next();
     }else{
-        return res.status(401).json({
+        return res.status(400).json({
             success:false,
             data:{},
             message:"You are not authorised for this action",

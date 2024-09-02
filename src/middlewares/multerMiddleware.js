@@ -1,16 +1,15 @@
-const multer = require('multer')
+const multer = require('multer');
 const path = require('path')
-
-const storageConfiguration = multer.diskStorage({
+const storageconfiguration = multer.diskStorage({
     destination:(req,file,next)=>{
         next(null,'uploads/')
     },
     filename:(req,file,next)=>{
-        console.log(file)
         next(null,`${Date.now()}${path.extname(file.originalname)}`)
     }
 })
-const uploader = multer({storage:storageConfiguration})
+
+const uploader = multer({storage:storageconfiguration});
 module.exports = {
     uploader
 }

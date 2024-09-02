@@ -44,13 +44,5 @@ app.get('/ping',isLoggedIn, (req, res) => {
     return res.json({message: "pong"});
 });
 
-app.post('/photo',uploader.single('incommingFile'),async (req,res)=>{
-    const result = await cloudinary.uploader.upload(req.file.path)
-    console.log(result)
-    fs.unlink(req.file.path)
-    return res.json({
-        message:'ok',
-    })
-})
 
 

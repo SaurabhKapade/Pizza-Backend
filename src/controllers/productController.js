@@ -1,16 +1,17 @@
 const { createProduct, getProduct, deleteProduct } = require("../services/productService");
 const AppError = require('../utils/appError')
-
 async function addProduct(req,res){
 
     try{
         const product = await createProduct({
-            productName:req.body.productName,
-            description:req.body.description,
+            ...req.body,
             imagePath:req.file.path,
-            price:req.body.price,
-            category:req.body.category,
-            inStock:req.body.inStock
+            // productName:req.body.productName,
+            // description:req.body.description,
+            // imagePath:req.file.path,
+            // price:req.body.price,
+            // category:req.body.category,
+            // inStock:req.body.inStock
         })
         return res.status(201).json({
             success: true,
@@ -20,7 +21,7 @@ async function addProduct(req,res){
         });
     }catch(err){
         console.log(err)
-        return res.status(err.statusCode).json({
+        return res.status(err.statusCode || 500).json({
             success: false,
             message: err.reason,
             data: {},
