@@ -8,7 +8,7 @@ class BadRequestError extends AppError{
         invalidParams.forEach(params => message += `${params}\n`);
         super('The Request has the following invalid parameters',400)
 
-        super(`Not able to find properties ${notFoundProperties} for the resource ${resourcre} , 404`)
+        super(`Not able to find properties ${notFoundProperties} for the resource ${resourcre}` , 404)
     }
 }
 

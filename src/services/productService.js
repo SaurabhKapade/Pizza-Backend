@@ -1,5 +1,5 @@
 const { cloudinary }= require('../config/cloudinaryConfig')
-const { insertProduct , getProductById ,deleteProductById } = require('../repositories/productRepository')
+const { insertProduct , getProductById ,deleteProductById, getAllProducts } = require('../repositories/productRepository')
 const fs = require('fs/promises')
 async function createProduct (productDetails){
     const imagePath = productDetails.imagePath
@@ -41,8 +41,17 @@ async function deleteProduct(productId) {
     return response;
 }
 
+async function getproducts(){
+    const response = await getAllProducts()
+    if(!response){
+        throw new NotFoundError('products')
+    }
+    return response
+}
+
 module.exports = {
     createProduct,
     deleteProduct,
     getProduct,
+    getproducts
 }

@@ -1,7 +1,8 @@
 const { express } = require('express');
 const product = require('../schema/productSchema');
 const BadRequestError = require('../utils/badRequest');
-const InternalServerError = require('../utils/internalServerError')
+const InternalServerError = require('../utils/internalServerError');
+const Product = require('../schema/productSchema');
 async function insertProduct(ProductData){
     try{
         const item = await product.create(ProductData)
@@ -37,8 +38,19 @@ async function deleteProductById(productId) {
         throw new InternalServerError();
     }
 }
+
+async function getAllProducts(){
+    try{
+        const response = await Product.find()
+        return response
+    }catch(error){
+        console.log(error)
+        throw new InternalServerError();
+    }
+}
 module.exports = {
     insertProduct,
     getProductById,
-    deleteProductById
+    deleteProductById,
+    getAllProducts
 }
