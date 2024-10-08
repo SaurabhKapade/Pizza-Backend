@@ -48,9 +48,12 @@ async function getAllProducts(){
         throw new InternalServerError();
     }
 }
+
+
+
 module.exports = {
     insertProduct,
     getProductById,
     deleteProductById,
-    getAllProducts
+    getAllProducts,
 }

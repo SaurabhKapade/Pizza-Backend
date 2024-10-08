@@ -1,17 +1,12 @@
-const { createProduct, getProduct, deleteProduct, getproducts } = require("../services/productService");
+const { createProduct, getProduct, deleteProduct, getproducts, searchProduct } = require("../services/productService");
 const AppError = require('../utils/appError')
 async function addProduct(req,res){
 
     try{
+        console.log(req.body)
         const product = await createProduct({
             ...req.body,
-            imagePath:req.file.path,
-            // productName:req.body.productName,
-            // description:req.body.description,
-            // imagePath:req.file.path,
-            // price:req.body.price,
-            // category:req.body.category,
-            // inStock:req.body.inStock
+            imagePath:req.file.path
         })
         return res.status(201).json({
             success: true,
@@ -58,6 +53,7 @@ async function getPr(req, res) {
         });
     }
 }
+
 
 
 async function deletePr(req, res) {
@@ -116,10 +112,11 @@ async function getAllpr(req,res){
     }
 }
 
+
 module.exports = {
     addProduct,
     getPr,
     deletePr,
-    getAllpr
-
+    getAllpr,
+    
 }

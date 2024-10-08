@@ -1,9 +1,9 @@
-const { getCart, modifyCart, clearProductsFromCart } = require("../services/cartService");
+const { getCart, modifyCart, clearProductsFromCart, deleteProduct } = require("../services/cartService");
 const AppError = require("../utils/appError");
 
 async function getCartByUser(req,res){
     try{
-        console.log("user id is",req.user.id)
+        console.log("user id is from getCartByUser Controller ",req.user.id)
         const cart = await getCart(req.user.id)
         return res.status(200).json({
             success:true,
@@ -96,8 +96,38 @@ async function clearCartById(req,res){
 }
 
 
+async function deleteProductById(req,res){
+    try{
+        const cart = await deleteProduct(req.user.id,req.params.itemId)
+        return res.status(200).json({
+            success:true,
+            message:'product Removed successfully',
+            error:{},
+            data:cart
+        })
+    }catch(error){
+        console.log(error)
+        if(error instanceof AppError){
+            return res.status(error.statusCode).json({
+                success:false,
+                message:error.message,
+                error:error,
+                data:{}
+            })
+        }
+        return res.status(500).json({
+            success:false,
+            message:"Something went wrong",
+            error:error,
+            data:{}
+        })
+    }
+}
+
+
 module.exports ={
     getCartByUser,
     modifyProductToCart,
-    clearCartById
+    clearCartById,
+    deleteProductById
 }

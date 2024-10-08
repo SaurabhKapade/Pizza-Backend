@@ -44,8 +44,24 @@ async function clearCart(userId){
         throw new InternalServerError()
     }
 }
+async function deleteProductFromCart(userId,itemId){
+    try{
+        const cart = await Cart.findOne({user:userId})
+        if(!cart){
+            throw new NotFoundError('Cart')
+        }
+        cart.items = cart.items.filter((item)=>{
+            return item.product._id.toString() !== itemId
+        })
+        await cart.save()
+        return cart
+    }catch(error){
+        throw new InternalServerError()
+    }
+}
 module.exports = {
     createCart,
     getCartByUserId,
-    clearCart
+    clearCart,
+    deleteProductFromCart
 }

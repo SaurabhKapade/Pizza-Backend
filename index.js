@@ -38,7 +38,7 @@ app.listen(serverConfig.PORT,async()=>{
     console.log(`server got started at port : ${serverConfig.PORT}`)
 })
 
-app.get('*',(req,res)=>{res.status(200) , res.json({massage :`server started at ${process.env.PORT}`})})
+app.get('*',(req,res)=>{res.status(200) , res.json({massage :`route not defined`})})
 
 app.get('/ping',isLoggedIn, (req, res) => {
     return res.json({message: "pong"});
