@@ -1,5 +1,6 @@
-const { findUser, createUser } = require("../repositories/userRepository");
-const {createCart} = require('../repositories/cartRepository')
+const { findUser, createUser, updateUserDetails } = require("../repositories/userRepository");
+const {createCart} = require('../repositories/cartRepository');
+const InternalServerError = require("../utils/internalServerError");
     // userDetails is a object conataining details of the user
     async function registerUser(userDetails) {
     // it will create a brand new user in the database
@@ -38,7 +39,18 @@ const {createCart} = require('../repositories/cartRepository')
     await createCart(newUser._id)
     return newUser;
 }
-
+async function userUpdate(data){
+    const response = await updateUserDetails(data)
+    if(!response){
+        throw{
+            reason: "cannot update user", 
+            statusCode: 500,
+            message:'User not updated'
+        }
+    }
+    return response
+}
 module.exports = {
   registerUser,
+  userUpdate
 };

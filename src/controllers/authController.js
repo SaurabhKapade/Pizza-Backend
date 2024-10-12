@@ -17,7 +17,8 @@ async function login(req,res){
         message:'user logedIn successfully',
         data:{
           userRole:response.userRole,
-          userData:response.userData
+          userData:response.userData,
+          id:response.id
         },
         error:{}
     })
